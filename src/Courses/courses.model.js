@@ -11,9 +11,10 @@ const courseSchema = new Schema({
         type: String,
         required: [true, 'Course description is required'],
     },
-    area: {
+    class: {
         type: String,
-        default: 'Área técnica'
+         required: [true, 'Class  is required'],
+         enum: ['Taller', 'TICS','Tecnologia', 'Practica Supervisada']
     }
 });
 

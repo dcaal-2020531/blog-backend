@@ -9,10 +9,10 @@ import {
 
 const api = Router();
 
-api.post('/createpublication', createPublication);
-api.get('/allpublications', getAllPublications);
-api.get('/publication/:id', getPublicationById);
-api.put('/editpublication/:id', updatePublication);
-api.delete('/deletepublication/:id', deletePublication);
+api.post('/posts', createPublication);
+api.get('/posts', getAllPublications);
+api.get('/posts/:id', getPublicationById);
+api.put('/posts/:id', updatePublication);
+api.delete('/posts/:id', deletePublication);
 
 export default api;

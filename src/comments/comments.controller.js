@@ -1,11 +1,18 @@
 import Comment from './comments.model.js';
 import mongoose from 'mongoose';
+import Publication from '../Publications/publications.model.js';
 
 export const createComment = async (req, res) => {
   try {
     const { authorName, content, publication } = req.body;
+
     const comment = new Comment({ authorName, content, publication });
     await comment.save();
+
+    await Publication.findByIdAndUpdate(publication, {
+      $push: { comments: comment._id },
+    });
+
     res.status(201).json({ success: true, message: 'Comentario creado', comment });
   } catch (error) {
     res.status(500).json({ success: false, message: 'Error al crear el comentario', error });

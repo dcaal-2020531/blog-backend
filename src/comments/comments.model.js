@@ -17,7 +17,7 @@ const commentSchema = new Schema({
         required: [true, 'Associated publication is required']
     },
     createdAt: {
-        type: Date,
+        type: Date,  
         default: Date.now
     }
 });

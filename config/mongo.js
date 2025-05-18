@@ -1,37 +1,37 @@
-import mongoose, { disconnect } from 'mongoose'
+//Conexión a DB
+import mongoose from "mongoose";
 
 export const connect = async()=>{
-    try{
-        //Ciclo de vida de Mongo
+    try {
+        //Ciclo de vida/connection de Mongo
         mongoose.connection.on('error', ()=>{
-            console.log('MongoDB | Could not be connect to mongodb')
-        })
+            console.log('Mongo DB | Could not be connected to MongoDB');
+        });
         mongoose.connection.on('connecting', ()=>{
-            console.log('MongoDB | try conecting')
-        })
+            console.log('Mongo DB | Try Connecting');
+        });
         mongoose.connection.on('connected', ()=>{
-            console.log('MongoDB | connected to mongodb')
-        })
+            console.log('Mongo DB | Connected to MongoDB');
+        });
         mongoose.connection.once('open', ()=>{
-            console.log('MongoDB | connected to database')
-        })
+            console.log('Mongo DB | Connected to Database');
+        });
         mongoose.connection.on('reconnected', ()=>{
-            console.log('MongoDB | reconnected to mongodb')
-        })
-        mongoose.connection.on('disconnected', ()=>{
-            console.log('MongoDB | disconnected')
-        })
+            console.log('Mongo DB | Reconnecting to MongoDB');
+        });
+        mongoose.connection.on('disconnect', ()=>{
+            console.log('Mongo DB | Disconnected');
+        });
 
-        //Conectarse a la BD
+        //Coneccion a la DB
         await mongoose.connect(
             `${process.env.DB_SERVICE}://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`,
             {
-                maxPoolSize: 50, //Máximo de conexiónes
-                serverSelectionTimeoutMS: 5000 //Tiempo máximo para intentar conectarse
+                maxPoolSize : 50, 
+                serverSelectionTimeoutMS : 5000 
             }
-        )
-
-    }catch(err){
-        console.error('Database connection failed', err)
+        );
+    } catch (error) {
+        console.error('Database connection failed', error);
     }
 }
